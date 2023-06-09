@@ -146,9 +146,9 @@ void GeodesicDistance::computeDivergence() {
   //  outfile.open("divergence.dat");
   for (size_t fi = 0; fi < m.FN(); fi++) {
     const VCGTriMesh::FaceType &f = m.face[fi];
-    const VCGTriMesh::VertexPointer &v0 = f.cV(0);
-    const VCGTriMesh::VertexPointer &v1 = f.cV(1);
-    const VCGTriMesh::VertexPointer &v2 = f.cV(2);
+    const auto v0 = f.cV(0);
+    const auto v1 = f.cV(1);
+    const auto v2 = f.cV(2);
     VCGTriMesh::CoordType e01(v1->cP() - v0->cP());
     VCGTriMesh::CoordType e12(v2->cP() - v1->cP());
     VCGTriMesh::CoordType e20(v0->cP() - v2->cP());

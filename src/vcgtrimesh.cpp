@@ -11,7 +11,7 @@ void VCGTriMesh::loadFromPlyFile(const std::string &filename) {
   mask |= nanoply::NanoPlyWrapper<VCGTriMesh>::IO_EDGEINDEX;
   mask |= nanoply::NanoPlyWrapper<VCGTriMesh>::IO_FACEINDEX;
   if (nanoply::NanoPlyWrapper<VCGTriMesh>::LoadModel(
-          std::filesystem::absolute(filename).c_str(), *this, mask) != 0) {
+          std::filesystem::absolute(filename).string().c_str(), *this, mask) != 0) {
     std::cout << "Could not load tri mesh" << std::endl;
   }
   vcg::tri::UpdateTopology<VCGTriMesh>::FaceFace(*this);
@@ -57,7 +57,7 @@ bool VCGTriMesh::savePly(const std::string plyFilename) {
 VCGTriMesh::VCGTriMesh() {}
 
 VCGTriMesh::VCGTriMesh(const std::string &filename) {
-  const std::string extension = std::filesystem::path(filename).extension();
+  const auto extension = std::filesystem::path(filename).extension();
   if (extension == ".ply") {
     loadFromPlyFile(filename);
   } else if (extension == ".obj") {
